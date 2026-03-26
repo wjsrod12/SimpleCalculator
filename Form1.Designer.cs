@@ -327,6 +327,7 @@
             // txtHistory
             // 
             txtHistory.BackColor = SystemColors.ScrollBar;
+            txtHistory.Font = new Font("맑은 고딕 Semilight", 12F, FontStyle.Italic, GraphicsUnit.Point, 129);
             txtHistory.Location = new Point(333, 74);
             txtHistory.Multiline = true;
             txtHistory.Name = "txtHistory";

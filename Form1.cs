@@ -5,15 +5,28 @@ namespace SimpleCalculator
         double firstNumber = 0;
         string operatorSymbol = "";
         bool isNewInput = true;
+        bool suppressProblemUpdate = false;
+        bool calculationCompleted = false;
 
         public Form1()
         {
             InitializeComponent();
+            // Update txtProblem in real-time when txtResult changes
+            txtResult.TextChanged += txtResult_TextChanged;
         }
 
         private void Number_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
+
+            // If a calculation was just completed and the user starts typing a number,
+            // clear the previous problem display and reset operator state.
+            if (calculationCompleted)
+            {
+                txtProblem.Text = "";
+                operatorSymbol = "";
+                calculationCompleted = false;
+            }
 
             if (isNewInput)
             {
@@ -24,8 +37,22 @@ namespace SimpleCalculator
             {
                 txtResult.Text += btn.Text;
             }
-
         }
+
+        private void txtResult_TextChanged(object sender, EventArgs e)
+        {
+            if (suppressProblemUpdate)
+                return;
+            if (!string.IsNullOrEmpty(operatorSymbol))
+            {
+                txtProblem.Text = $"{firstNumber} {operatorSymbol} {txtResult.Text}";
+            }
+            else
+            {
+                txtProblem.Text = txtResult.Text;
+            }
+        }
+
         private void Operator_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
@@ -46,20 +73,21 @@ namespace SimpleCalculator
             }
             else
             {
-                txtResult.Text = "0";
+                txtResult.Text = "";
                 isNewInput = true;
             }
         }
 
         private void btnCE_Click(object sender, EventArgs e)
         {
-            txtResult.Text = "0";
+            // Clear the current entry completely (leave empty) instead of showing "0"
+            txtResult.Text = "";
             isNewInput = true;
         }
 
         private void btnC_Click(object sender, EventArgs e)
         {
-            txtResult.Text = "0";
+            txtResult.Text = "";
             txtProblem.Text = "";
 
             firstNumber = 0;
@@ -89,9 +117,15 @@ namespace SimpleCalculator
             }
             txtHistory.Text += $"{firstNumber}{operatorSymbol}{secondNumber} = {result}\r\n";
 
-            txtProblem.Text = $"{firstNumber} {operatorSymbol} {secondNumber} = {result}";
-            txtResult.Text = result.ToString();
 
+            suppressProblemUpdate = true;
+            txtProblem.Text = $"{firstNumber} {operatorSymbol} {secondNumber} = {result}";
+            txtResult.Text = result.ToString("0.##");
+            suppressProblemUpdate = false;
+
+            // Mark that a full calculation was completed so next number press
+            // clears the displayed problem.
+            calculationCompleted = true;
             isNewInput = true;
         }
 
