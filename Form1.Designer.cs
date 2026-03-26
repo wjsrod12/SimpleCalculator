@@ -65,8 +65,9 @@
             // 
             // btnCE
             // 
-            btnCE.Font = new Font("맑은 고딕", 12F);
-            btnCE.Location = new Point(20, 160);
+            btnCE.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
+            btnCE.ForeColor = Color.Green;
+            btnCE.Location = new Point(91, 160);
             btnCE.Name = "btnCE";
             btnCE.Size = new Size(65, 44);
             btnCE.TabIndex = 1;
@@ -76,8 +77,9 @@
             // 
             // btnC
             // 
-            btnC.Font = new Font("맑은 고딕", 12F);
-            btnC.Location = new Point(91, 160);
+            btnC.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
+            btnC.ForeColor = Color.Green;
+            btnC.Location = new Point(20, 160);
             btnC.Name = "btnC";
             btnC.Size = new Size(65, 44);
             btnC.TabIndex = 2;
@@ -87,12 +89,13 @@
             // 
             // btnDel
             // 
-            btnDel.Font = new Font("맑은 고딕", 12F);
+            btnDel.Font = new Font("맑은 고딕", 12F, FontStyle.Bold);
+            btnDel.ForeColor = Color.Green;
             btnDel.Location = new Point(162, 160);
             btnDel.Name = "btnDel";
             btnDel.Size = new Size(65, 44);
             btnDel.TabIndex = 3;
-            btnDel.Text = "del";
+            btnDel.Text = "⌫";
             btnDel.UseVisualStyleBackColor = true;
             btnDel.Click += btnDel_Click;
             // 
