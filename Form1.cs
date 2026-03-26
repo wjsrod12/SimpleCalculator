@@ -76,9 +76,9 @@ namespace SimpleCalculator
                 result = firstNumber + secondNumber;
             else if (operatorSymbol == "-")
                 result = firstNumber - secondNumber;
-            else if (operatorSymbol == "*")
+            else if (operatorSymbol == "X")
                 result = firstNumber * secondNumber;
-            else if (operatorSymbol == "/")
+            else if (operatorSymbol == "÷")
             {
                 if (secondNumber == 0)
                 {
