@@ -2,7 +2,7 @@ namespace SimpleCalculator
 {
     public partial class Form1 : Form
     {
-        int firstNumber = 0;
+        double firstNumber = 0;
         string operatorSymbol = "";
         bool isNewInput = true;
 
@@ -30,7 +30,7 @@ namespace SimpleCalculator
         {
             Button btn = sender as Button;
 
-            firstNumber = int.Parse(txtResult.Text);
+            firstNumber = double.Parse(txtResult.Text);
             operatorSymbol = btn.Text;
 
             txtProblem.Text = $"{firstNumber} {operatorSymbol}";
@@ -69,8 +69,8 @@ namespace SimpleCalculator
 
         private void btnEqual_Click(object sender, EventArgs e)
         {
-            int secondNumber = int.Parse(txtResult.Text);
-            int result = 0;
+            double secondNumber = double.Parse(txtResult.Text);
+            double result = 0;
 
             if (operatorSymbol == "+")
                 result = firstNumber + secondNumber;
@@ -94,8 +94,18 @@ namespace SimpleCalculator
             isNewInput = true;
         }
 
-       
-
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (isNewInput)
+            {
+                txtResult.Text = "0.";
+                isNewInput = false;
+                return;
+            }
+            if (!txtResult.Text.Contains("."))
+            {
+                txtResult.Text += ".";
+            }
+        }
     }
 }

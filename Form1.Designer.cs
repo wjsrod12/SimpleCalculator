@@ -49,6 +49,7 @@
             btnPlus = new Button();
             btn0 = new Button();
             btnEqual = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -292,11 +293,23 @@
             btnEqual.UseVisualStyleBackColor = true;
             btnEqual.Click += btnEqual_Click;
             // 
+            // button1
+            // 
+            button1.Font = new Font("맑은 고딕", 18F);
+            button1.Location = new Point(162, 367);
+            button1.Name = "button1";
+            button1.Size = new Size(65, 41);
+            button1.TabIndex = 21;
+            button1.Text = ".";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(461, 455);
+            Controls.Add(button1);
             Controls.Add(btnEqual);
             Controls.Add(btn0);
             Controls.Add(btnPlus);
@@ -347,5 +360,6 @@
         private Button btnPlus;
         private Button btn0;
         private Button btnEqual;
+        private Button button1;
     }
 }
