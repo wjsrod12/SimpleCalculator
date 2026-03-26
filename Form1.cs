@@ -76,7 +76,7 @@ namespace SimpleCalculator
                 result = firstNumber + secondNumber;
             else if (operatorSymbol == "-")
                 result = firstNumber - secondNumber;
-            else if (operatorSymbol == "X")
+            else if (operatorSymbol == "x")
                 result = firstNumber * secondNumber;
             else if (operatorSymbol == "÷")
             {
@@ -87,6 +87,7 @@ namespace SimpleCalculator
                 }
                 result = firstNumber / secondNumber;
             }
+            txtHistory.Text += $"{firstNumber}{operatorSymbol}{secondNumber} = {result}\r\n";
 
             txtProblem.Text = $"{firstNumber} {operatorSymbol} {secondNumber} = {result}";
             txtResult.Text = result.ToString();
@@ -107,5 +108,65 @@ namespace SimpleCalculator
                 txtResult.Text += ".";
             }
         }
+
+        private void btnSign_Click(object sender, EventArgs e)
+        {
+            if (txtResult.Text != "")
+            {
+                double num = double.Parse(txtResult.Text);
+                num = -num;
+                txtResult.Text = num.ToString();
+            }
+        }
+
+        private void txtHistory_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = txtHistory.GetCharIndexFromPosition(e.Location);
+            int line = txtHistory.GetLineFromCharIndex(index);
+
+            string selectedLine = txtHistory.Lines[line];
+
+            if (selectedLine.Contains("="))
+            {
+                string problem = selectedLine.Split('=')[0].Trim();
+
+                txtProblem.Text = problem;
+                txtResult.Text = "";
+
+                HistoryProblem(problem);
+            }
+        }
+
+            private void HistoryProblem(string problem)
+        {
+            if (problem.Contains("+"))
+            {
+                var parts = problem.Split('+');
+                firstNumber = double.Parse(parts[0]);
+                operatorSymbol = "+";
+                txtResult.Text = parts[1];
+            }
+            else if (problem.Contains("-"))
+            {
+                var parts = problem.Split('-');
+                firstNumber = double.Parse(parts[0]);
+                operatorSymbol = "-";
+                txtResult.Text = parts[1];
+            }
+            else if (problem.Contains("*"))
+            {
+                var parts = problem.Split('*');
+                firstNumber = double.Parse(parts[0]);
+                operatorSymbol = "*";
+                txtResult.Text = parts[1];
+            }
+            else if (problem.Contains("/"))
+            {
+                var parts = problem.Split('/');
+                firstNumber = double.Parse(parts[0]);
+                operatorSymbol = "/";
+                txtResult.Text = parts[1];
+            }
     }
-}
+    }
+    }
