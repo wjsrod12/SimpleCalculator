@@ -76,6 +76,17 @@ namespace SimpleCalculator
                 result = firstNumber + secondNumber;
             else if (operatorSymbol == "-")
                 result = firstNumber - secondNumber;
+            else if (operatorSymbol == "*")
+                result = firstNumber * secondNumber;
+            else if (operatorSymbol == "/")
+            {
+                if (secondNumber == 0)
+                {
+                    MessageBox.Show("0으로 나눌 수 없습니다.");
+                    return;
+                }
+                result = firstNumber / secondNumber;
+            }
 
             txtProblem.Text = $"{firstNumber} {operatorSymbol} {secondNumber} = {result}";
             txtResult.Text = result.ToString();

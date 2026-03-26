@@ -228,6 +228,7 @@
             btnDivision.TabIndex = 15;
             btnDivision.Text = "÷";
             btnDivision.UseVisualStyleBackColor = true;
+            btnDivision.Click += Operator_Click;
             // 
             // btnTimes
             // 
@@ -239,6 +240,7 @@
             btnTimes.TabIndex = 16;
             btnTimes.Text = "X";
             btnTimes.UseVisualStyleBackColor = true;
+            btnTimes.Click += Operator_Click;
             // 
             // btnMinus
             // 
