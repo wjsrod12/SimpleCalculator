@@ -364,8 +364,10 @@
             Controls.Add(btnC);
             Controls.Add(btnCE);
             Controls.Add(label1);
+            KeyPreview = true;
             Name = "Form1";
             Text = "Form1";
+            KeyDown += Form1_KeyDown;
             ResumeLayout(false);
             PerformLayout();
         }

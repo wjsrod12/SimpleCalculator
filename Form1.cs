@@ -13,6 +13,9 @@ namespace SimpleCalculator
             InitializeComponent();
             // Update txtProblem in real-time when txtResult changes
             txtResult.TextChanged += txtResult_TextChanged;
+            // Let the form receive key events before the focused control so we
+            // can handle numeric keys centrally and suppress default input.
+            this.KeyPreview = true;
         }
 
         private void Number_Click(object sender, EventArgs e)
@@ -171,7 +174,7 @@ namespace SimpleCalculator
             }
         }
 
-            private void HistoryProblem(string problem)
+        private void HistoryProblem(string problem)
         {
             if (problem.Contains("+"))
             {
@@ -201,6 +204,120 @@ namespace SimpleCalculator
                 operatorSymbol = "/";
                 txtResult.Text = parts[1];
             }
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($"KeyDown: {e.KeyCode}");
+
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                btnEqual.PerformClick();
+                e.SuppressKeyPress = true;
+                return;
+            }
+            // 숫자 (상단 키보드)
+            if (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9)
+            {
+                string num = (e.KeyCode - Keys.D0).ToString();
+                if (calculationCompleted)
+                {
+                    txtProblem.Text = "";
+                    operatorSymbol = "";
+                    calculationCompleted = false;
+                }
+                if (isNewInput)
+                {
+                    txtResult.Text = num;
+                    isNewInput = false;
+                }
+                else
+                {
+                    txtResult.Text += num;
+                }
+                e.SuppressKeyPress = true;
+                return;
+            }
+
+            if (e.KeyCode == Keys.Back)
+            {
+                btnDel.PerformClick();
+                e.SuppressKeyPress = true;
+                return;
+            }
+
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            {
+                btnEqual.PerformClick();
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyCode == Keys.Oemplus)
+            {
+                btnPlus.PerformClick();
+                e.SuppressKeyPress = true;
+                return;
+            }
+
+            if (e.KeyCode == Keys.OemMinus)
+            {
+                btnMinus.PerformClick();
+                e.SuppressKeyPress = true;
+                return;
+            }
+
+            if (e.KeyCode == Keys.Multiply || (e.KeyCode == Keys.D8 && e.Shift))
+            {
+                btnTimes.PerformClick();
+                e.SuppressKeyPress = true;
+                return;
+            }
+
+            // Divide: Numpad '/' or OEM '/' key (commonly Oem2 or OemQuestion)
+            if (e.KeyCode == Keys.Divide || e.KeyCode == Keys.Oem2 || e.KeyCode == Keys.OemQuestion)
+            {
+                btnDivision.PerformClick();
+                e.SuppressKeyPress = true;
+                return;
+            }
+
+            // 키보드
+            if (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9)
+            {
+                string num = (e.KeyCode - Keys.NumPad0).ToString();
+                if (calculationCompleted)
+                {
+                    txtProblem.Text = "";
+                    operatorSymbol = "";
+                    calculationCompleted = false;
+                }
+                if (isNewInput)
+                {
+                    txtResult.Text = num;
+                    isNewInput = false;
+                }
+                else
+                {
+                    txtResult.Text += num;
+                }
+                e.SuppressKeyPress = true;
+                return;
+            }
+
+            if (e.KeyCode == Keys.Add)
+            {
+                btnPlus.PerformClick();
+                e.SuppressKeyPress = true;
+                return;
+            }
+            else if (e.KeyCode == Keys.Subtract)
+            {
+                btnMinus.PerformClick();
+                e.SuppressKeyPress = true;
+                return;
+            }
+        }
     }
-    }
-    }
+}
